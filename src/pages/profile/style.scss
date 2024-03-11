@@ -1,0 +1,105 @@
+@import "../../mixins.scss";
+
+.profileContainer {
+  min-height: 100vh;
+  min-width: 300px;
+  background-color: var(--bg);
+  color: var(--textColor);
+  padding-top: 60px;
+  h1 {
+    text-align: center;
+  }
+  .bookings {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+
+    .booking {
+      border-radius: 10px;
+      padding: 10px;
+      background-color: var(--softBg);
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
+      @include md {
+        flex-direction: row;
+        gap: 10px;
+        align-items: flex-start;
+      }
+
+      .mediaImage {
+        align-self: center;
+        img {
+          border-radius: 10px;
+          height: 300px;
+          width: 200px;
+          object-fit: cover;
+          @include md {
+            height: 300px;
+            width: 200px;
+          }
+        }
+      }
+      .col {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        max-width: 400px;
+        width: 200px;
+        @include md {
+          align-self: flex-start;
+        }
+        .row {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          span {
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--softTextColor);
+          }
+          p {
+            font-size: 14px;
+            font-weight: 400;
+            &::first-letter {
+              text-transform: capitalize;
+            }
+          }
+        }
+
+        h4 {
+          margin-top: 20px;
+          text-align: center;
+          font-weight: 500;
+        }
+        .ticketsContainer {
+          display: flex;
+          flex-direction: column;
+          .tickets {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            span {
+              font-size: 14px;
+              font-weight: 500;
+              color: var(--softTextColor);
+            }
+            ul {
+              list-style-type: none;
+              padding-left: 0;
+              display: flex;
+              gap: 10px;
+              li {
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
