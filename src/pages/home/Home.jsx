@@ -15,6 +15,10 @@ const Home = () => {
     query,
   });
 
+  if (error) {
+    alert("Something went wrong!");
+  }
+
   return (
     <>
       <Header />

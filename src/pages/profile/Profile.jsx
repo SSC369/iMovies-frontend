@@ -108,7 +108,7 @@ const Profile = () => {
                     </div>
 
                     <div className="ticketsContainer">
-                      {balcony.length > 0 && isNumber(balcony[0]) && (
+                      {balcony.length > 0 && (
                         <div className="tickets">
                           <span>Balcony Seats:</span>
                           <ul>
@@ -122,24 +122,30 @@ const Profile = () => {
                         </div>
                       )}
 
-                      {middle.length && isNumber(middle[0]) > 0 && (
+                      {middle.length > 0 && (
                         <div className="tickets">
                           <span>Middle Seats:</span>
                           <ul>
-                            {middle.map((e) => {
-                              return <li key={v4()}>{isNumber(e) && e}</li>;
-                            })}
+                            {middle.map((e, index) => (
+                              <li key={v4()}>
+                                <p>{isNumber(e) && e}</p>
+                                {index !== middle.length - 1 && <p>,</p>}
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       )}
 
-                      {lower.length > 0 && isNumber(lower[0]) && (
+                      {lower.length > 0 && (
                         <div className="tickets">
                           <span>Lower Seats:</span>
                           <ul>
-                            {lower.map((e) => {
-                              return <li key={v4()}>{isNumber(e) && e}</li>;
-                            })}
+                            {lower.map((e, index) => (
+                              <li key={v4()}>
+                                <p>{isNumber(e) && e}</p>
+                                {index !== lower.length - 1 && <p>,</p>}
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       )}
