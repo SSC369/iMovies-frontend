@@ -34,7 +34,7 @@
     width: 60px;
     list-style-type: none;
     padding-left: 0;
-    background-color: var(--softBg);
+    background-color: var(--bg);
     border: 2px solid crimson;
     border-radius: 10px;
     display: flex;
@@ -42,6 +42,7 @@
     align-items: center;
     gap: 10px;
     padding: 10px;
+    border: 2px solid crimson;
     @include md {
       display: none;
     }

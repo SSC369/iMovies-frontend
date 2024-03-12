@@ -41,7 +41,7 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
-
+    border: 2px solid crimson;
     padding: 10px;
     @include md {
       display: none;

@@ -262,7 +262,9 @@ const SeatsPage = () => {
       );
 
       const host = `${render}/api/shows/updateshowtickets/${showId}`;
-
+      delete bookedSeatDetails.balcony.total;
+      delete bookedSeatDetails.middle.total;
+      delete bookedSeatDetails.lower.total;
       await axios.put(host, bookedSeatDetails);
       setPayment(true);
     } catch (error) {

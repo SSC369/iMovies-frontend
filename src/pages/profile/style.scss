@@ -50,11 +50,20 @@
       .col {
         display: flex;
         flex-direction: column;
-        align-self: center;
         max-width: 400px;
+        gap: 8px;
         width: 200px;
+        height: 100%;
         @include md {
           align-self: flex-start;
+        }
+        .cancel {
+          margin-top: auto;
+          color: white;
+          background-color: crimson;
+          border: none;
+          border-radius: 6px;
+          padding: 6px 0px;
         }
         .row {
           display: flex;

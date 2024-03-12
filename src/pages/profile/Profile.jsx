@@ -3,6 +3,8 @@ import Cookies from "js-cookie";
 import Loader from "../../components/loader/Loader";
 import dayjs from "dayjs";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import { VscClose } from "react-icons/vsc";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import { v4 } from "uuid";
@@ -22,6 +24,15 @@ const Profile = () => {
       navigate("/login");
     }
   }, []);
+
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 1000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+    closeOnClick: true,
+  };
 
   const getBookingsData = async () => {
     try {
@@ -45,6 +56,32 @@ const Profile = () => {
   useEffect(() => {
     getBookingsData();
   }, []);
+
+  const handleCancel = async (bookingId, balcony, middle, lower) => {
+    try {
+      const tickets = {
+        balcony,
+        middle,
+        lower,
+      };
+      const host = `${render}/api/bookings/cancelbooking/${bookingId}`;
+
+      const { data } = await axios.put(host, {
+        tickets,
+        bookingId,
+      });
+      if (data.status) {
+        toast.success(data.msg, toastOptions);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else {
+        toast.error(data.msg, toastOptions);
+      }
+    } catch (error) {
+      alert("Something went wrong!");
+    }
+  };
 
   return (
     <>
@@ -157,6 +194,15 @@ const Profile = () => {
                       <span>Total Price:</span>
                       <p>{price}₹</p>
                     </div>
+                    <button
+                      onClick={() =>
+                        handleCancel(bookingId, balcony, middle, lower)
+                      }
+                      className="cancel"
+                      type="button"
+                    >
+                      Cancel
+                    </button>
                   </div>
                 </li>
               );
@@ -165,6 +211,7 @@ const Profile = () => {
         </div>
       )}
       <Footer />
+      <ToastContainer />
     </>
   );
 };
