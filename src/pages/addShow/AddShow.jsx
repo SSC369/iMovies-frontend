@@ -8,10 +8,11 @@ import axios from "axios";
 import AdminHeader from "../../components/adminHeader/AdminHeader";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import Loader from "../../components/loader/Loader";
-import Header from "../../components/header/Header";
-import Footer from "../../components/footer/Footer";
+
 import useFetch from "../../hooks/useFetch";
 import "./style.scss";
+import { render } from "../../host";
+
 const AddShow = () => {
   const [showDetails, setShowDetails] = useState({
     movieId: "",
@@ -19,7 +20,8 @@ const AddShow = () => {
     showtime: "",
     showdate: "",
   });
-  const moviesData = useFetch(`/api/movie/getmovies`);
+  const moviesData = useFetch(`/api/movie/getmovies?query=${""}`);
+  console.log(moviesData);
   const theatreData = useFetch(`/api/theatre/gettheatres`);
 
   const navigate = useNavigate();
@@ -68,10 +70,8 @@ const AddShow = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (handleValidation()) {
-      console.log(showDetails);
       try {
-        const base = render;
-        const host = `${base}/api/shows/addshow`;
+        const host = `${render}/api/shows/addshow`;
         const jwtToken = Cookies.get("adminJwtToken");
         const res = await axios.post(
           host,
@@ -87,15 +87,15 @@ const AddShow = () => {
         );
 
         const { status, msg } = res.data;
-        // setShowDetails({
-        //   theatre: "",
-        //   showtime: "",
-        //   showdate: "",
-        //   movieId: "",
-        // });
-
         if (status === true) {
           toast.success(msg, toastOptions);
+          setShowDetails({
+            theatre: "",
+            showtime: "",
+            showdate: "",
+            movieId: "",
+          });
+          navigate("/admin");
         } else {
           toast.error(msg, toastOptions);
         }
@@ -109,7 +109,7 @@ const AddShow = () => {
     <>
       <AdminHeader />
 
-      {theatreData?.loading ? (
+      {theatreData?.loading || moviesData?.loading ? (
         <div className="loadingContainer">
           <Loader />
         </div>

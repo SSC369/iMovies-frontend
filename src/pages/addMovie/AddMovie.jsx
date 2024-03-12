@@ -206,6 +206,7 @@ const AddMovie = () => {
           </div>
 
           <div className="details">
+            <h3>Add Movie</h3>
             <div className="inputContainer">
               <label htmlFor="name">Movie</label>
               <input

@@ -12,11 +12,20 @@ import { HiOutlineHome } from "react-icons/hi2";
 import { ThemeContext } from "../../context/themeContext";
 import { MdMovieEdit } from "react-icons/md";
 import { IoAddCircleOutline } from "react-icons/io5";
+import Cookies from "js-cookie";
+import { FaMasksTheater } from "react-icons/fa6";
 
 const Header = () => {
   const [menu, setMenu] = useState(false);
   const { toggle, theme } = useContext(ThemeContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const adminToken = Cookies.get("adminJwtToken");
+    if (!adminToken) {
+      navigate("/admin/login");
+    }
+  }, []);
 
   return (
     <nav className={`adminHeader`}>
@@ -46,12 +55,12 @@ const Header = () => {
           <li>
             <IoAddCircleOutline onClick={() => navigate("/admin/addshow")} />
           </li>
+          <li>
+            <FaMasksTheater onClick={() => navigate("/admin/addtheatre")} />
+          </li>
           {/* <li>
             <MdMovieCreation onClick={() => navigate("/admin/movies")} />
           </li> */}
-          <li>
-            <CgProfile />
-          </li>
         </ul>
       )}
 
@@ -80,12 +89,12 @@ const Header = () => {
           <li className="item">
             <IoAddCircleOutline onClick={() => navigate("/admin/addshow")} />
           </li>
+          <li className="item">
+            <FaMasksTheater onClick={() => navigate("/admin/addtheatre")} />
+          </li>
           {/* <li onClick={() => navigate("/admin/movies")} className="item">
             <MdMovieCreation />
           </li> */}
-          <li className="item">
-            <CgProfile />
-          </li>
         </ul>
       </div>
     </nav>

@@ -12,6 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { render } from "../../host";
+import { TbMovieOff } from "react-icons/tb";
 
 const Admin = () => {
   const [showsData, setShowsData] = useState([]);
@@ -39,7 +40,6 @@ const Admin = () => {
           "auth-token": adminToken,
         },
       });
-
       if (data?.status) {
         setLoading(false);
         setShowsData(data?.adminShows);
@@ -101,48 +101,59 @@ const Admin = () => {
       <AdminHeader />
       <div className="adminContainer">
         {!loading ? (
-          <div className="wrapper">
-            <h1>
-              Admin <span>Shows</span>
-            </h1>
-            <ul className="showsContainer">
-              {showsData?.map((s, i) => {
-                const upperCaseTheatre =
-                  s.theatreName[0].toUpperCase() + s.theatreName.slice(1);
+          <>
+            {showsData.length > 0 ? (
+              <div className="wrapper">
+                <h1>
+                  Admin <span>Shows</span>
+                </h1>
+                <ul className="showsContainer">
+                  {showsData?.map((s, i) => {
+                    const upperCaseTheatre =
+                      s.theatreName[0].toUpperCase() + s.theatreName.slice(1);
 
-                const upperCaseMovie =
-                  s.movieName[0].toUpperCase() + s.movieName.slice(1);
-                console.log(s);
-                return (
-                  <li key={i}>
-                    <BiCameraMovie />
-                    <div className="right">
-                      <div>
-                        <span>Movie:</span>
-                        <p>{upperCaseMovie}</p>
-                      </div>
-                      <div>
-                        <span>Theatre:</span>
-                        <p>{upperCaseTheatre}</p>
-                      </div>
-                      <div>
-                        <span>Showdate:</span>
-                        <p>{dayjs(s?.showdate).format("MMM D, YYYY")}</p>
-                      </div>
-                      <div>
-                        <span>Showtime:</span>
-                        <p>{convertTo12HourFormat(s?.showtime)}</p>
-                      </div>
+                    const upperCaseMovie =
+                      s.movieName[0].toUpperCase() + s.movieName.slice(1);
 
-                      <button onClick={() => handleDelete(s.showId, s.movieId)}>
-                        <AiOutlineDelete />
-                      </button>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+                    return (
+                      <li key={i}>
+                        <BiCameraMovie />
+                        <div className="right">
+                          <div>
+                            <span>Movie:</span>
+                            <p>{upperCaseMovie}</p>
+                          </div>
+                          <div>
+                            <span>Theatre:</span>
+                            <p>{upperCaseTheatre}</p>
+                          </div>
+                          <div>
+                            <span>Showdate:</span>
+                            <p>{dayjs(s?.showdate).format("MMM D, YYYY")}</p>
+                          </div>
+                          <div>
+                            <span>Showtime:</span>
+                            <p>{convertTo12HourFormat(s?.showtime)}</p>
+                          </div>
+
+                          <button
+                            onClick={() => handleDelete(s.showId, s.movieId)}
+                          >
+                            <AiOutlineDelete />
+                          </button>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : (
+              <div className="noShowsContainer">
+                <TbMovieOff />
+                <h1>Create a movie show</h1>
+              </div>
+            )}
+          </>
         ) : (
           <div className="loadingContainer">
             <Loader />

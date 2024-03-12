@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Header from "../../components/header/Header";
 import { MdOutlineDone } from "react-icons/md";
 import axios from "axios";
+import dayjs from "dayjs";
 import { v4 } from "uuid";
 import { render } from "../../host";
 
@@ -84,22 +85,28 @@ const Checkout = ({ selectedSeats, showId, theatreName }) => {
                     </div>
                     <div className="row">
                       <span>Showdate:</span>
-                      <p>{showDetails?.showdate}</p>
+                      <p>
+                        {dayjs(showDetails?.showdate).format("MMM D, YYYY")}
+                      </p>
                     </div>
 
                     <div className="row">
                       <span>showtime:</span>
                       <p>{showDetails?.showtime}</p>
                     </div>
-                    <h4>Your Seats:</h4>
+                    <h4>Seats:</h4>
                     <div className="ticketsContainer">
                       {selectedSeats?.balcony.length > 0 && (
                         <div className="tickets">
-                          <span>Balcony Seats:</span>
+                          <span>Balcony Seats</span>
                           <ul>
-                            {selectedSeats?.balcony.map((e) => {
-                              <li key={v4()}>{e}</li>;
-                            })}
+                            {selectedSeats?.balcony.map((e, index) => (
+                              <li key={v4()}>
+                                <p>{e}</p>
+                                {index !==
+                                  selectedSeats?.balcony.length - 1 && <p>,</p>}
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       )}
@@ -108,9 +115,14 @@ const Checkout = ({ selectedSeats, showId, theatreName }) => {
                         <div className="tickets">
                           <span>Middle Seats:</span>
                           <ul>
-                            {selectedSeats?.middle.map((e) => {
-                              <li key={v4()}>{e}</li>;
-                            })}
+                            {selectedSeats?.middle.map((e, index) => (
+                              <li key={v4()}>
+                                <p>{e}</p>
+                                {index !== selectedSeats?.middle.length - 1 && (
+                                  <p>,</p>
+                                )}
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       )}
@@ -119,9 +131,14 @@ const Checkout = ({ selectedSeats, showId, theatreName }) => {
                         <div className="tickets">
                           <span>Lower Seats:</span>
                           <ul>
-                            {selectedSeats?.lower.map((e) => {
-                              return <li key={v4()}>{e}</li>;
-                            })}
+                            {selectedSeats?.lower.map((e, index) => (
+                              <li key={v4()}>
+                                <p>{e}</p>
+                                {index !== selectedSeats?.lower.length - 1 && (
+                                  <p>,</p>
+                                )}
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       )}

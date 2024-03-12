@@ -2,16 +2,26 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Loader from "../../components/loader/Loader";
 import dayjs from "dayjs";
-import "./style.scss";
 import axios from "axios";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
 import { v4 } from "uuid";
 import { render } from "../../host";
+import { useNavigate } from "react-router-dom";
+import "./style.scss";
+
 const Profile = () => {
   const [bookings, setBookings] = useState([]);
-  console.log(bookings);
+
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const jwtToken = Cookies.get("jwtToken");
+    if (!jwtToken) {
+      alert("Login is required");
+      navigate("/login");
+    }
+  }, []);
 
   const getBookingsData = async () => {
     try {
@@ -60,13 +70,17 @@ const Profile = () => {
               let price = 0;
               let { balcony, middle, lower } = ticketsData;
               price += balcony.total + middle.total + lower.total;
-              balcony = Object.keys(balcony);
-              middle = Object.keys(middle);
-              lower = Object.keys(lower);
+              const balconyKeys = Object.keys(balcony);
+              const middleKeys = Object.keys(middle);
+              const lowerKeys = Object.keys(lower);
               function isNumber(str) {
                 // Using regular expression to check if the string consists only of digits or is a valid float
                 return /^\d+(\.\d+)?$/.test(str);
               }
+
+              balcony = balconyKeys.filter((s) => isNumber(s) === true);
+              middle = middleKeys.filter((s) => isNumber(s) === true);
+              lower = lowerKeys.filter((s) => isNumber(s) === true);
 
               return (
                 <li className="booking" key={bookingId}>
@@ -98,9 +112,12 @@ const Profile = () => {
                         <div className="tickets">
                           <span>Balcony Seats:</span>
                           <ul>
-                            {balcony.map((e) => {
-                              return <li key={v4()}>{isNumber(e) && e}</li>;
-                            })}
+                            {balcony.map((e, index) => (
+                              <li key={v4()}>
+                                <p>{isNumber(e) && e}</p>
+                                {index !== balcony.length - 1 && <p>,</p>}
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       )}

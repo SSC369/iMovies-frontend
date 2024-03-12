@@ -150,7 +150,7 @@ const SeatsPage = () => {
   }
 
   const theatreDetails = resData?.data?.theatre;
-  //console.log(theatreDetails);
+  console.log(theatreDetails);
   const navigate = useNavigate();
 
   useEffect(() => {

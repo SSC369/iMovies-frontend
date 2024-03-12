@@ -47,7 +47,7 @@ const AdminLogin = () => {
     const { email, password } = userData;
 
     if (handleValidation()) {
-      const host = `${render}/api/auth/login`;
+      const host = `${render}/api/auth/admin/login`;
 
       const response = await axios.post(host, {
         email,
@@ -64,7 +64,7 @@ const AdminLogin = () => {
           password: "",
           email: "",
         });
-        navigate("/admin/addshow");
+        navigate("/admin");
       } else {
         toast.error(data.msg, toastOptions);
       }
@@ -121,6 +121,12 @@ const AdminLogin = () => {
           <label htmlFor="check">Show Password</label>
         </div>
         <button type="submit">Submit</button>
+        <p>
+          Create an account
+          <Link style={{ textDecoration: "none" }} to={"/admin/register"}>
+            <span>Register</span>
+          </Link>
+        </p>
       </form>
       <ToastContainer />
     </div>

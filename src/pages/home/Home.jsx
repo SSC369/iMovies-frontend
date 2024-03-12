@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -7,14 +7,17 @@ import { Link } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import "./style.scss";
 import Loader from "../../components/loader/Loader";
+import { searchContext } from "../../context/searchContext";
 
 const Home = () => {
-  const { resData, error, loading } = useFetch("/api/movie/getmovies");
+  const { query } = useContext(searchContext);
+  const { resData, error, loading } = useFetch(`/api/movie/getmovies`, {
+    query,
+  });
 
   return (
     <>
       <Header />
-
       <div className="homeContainer">
         <div className="home">
           {loading ? (

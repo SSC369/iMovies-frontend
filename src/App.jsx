@@ -17,6 +17,7 @@ import FavoriteShows from "./pages/favoriteShows/FavoriteShows";
 import Checkout from "./pages/checkoutPage/Checkout";
 import AdminMovies from "./pages/adminMovies/AdminMovies";
 import Profile from "./pages/profile/Profile";
+import AdminRegister from "./pages/register/AdminRegister";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/savedmovies" element={<FavoriteShows />} />
         {/* <Route path="/admin/movies" element={<AdminMovies />} /> */}
         <Route path="/profile" element={<Profile />} />
+        <Route path="/admin/register" element={<AdminRegister />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>

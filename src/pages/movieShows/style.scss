@@ -7,6 +7,8 @@
   color: var(--textColor);
   padding-top: 60px;
   .wrapper {
+    display: flex;
+    flex-direction: column;
     width: 80%;
     .noShowsContainer {
       display: flex;
@@ -20,6 +22,7 @@
       }
     }
     .showsContainer {
+      align-self: center;
       width: 100%;
       display: flex;
       align-items: center;
@@ -80,10 +83,6 @@
                 color: white;
               }
             }
-            @include md {
-              font-size: 16px;
-              height: 40px;
-            }
           }
           div {
             display: flex;
@@ -94,16 +93,10 @@
               font-size: 14px;
               font-weight: 500;
               color: var(--softTextColor);
-              @include md {
-                font-size: 18px;
-              }
             }
             p {
               font-size: 14px;
               color: var(--textColor);
-              @include md {
-                font-size: 18px;
-              }
             }
           }
         }
