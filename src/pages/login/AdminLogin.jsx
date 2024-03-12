@@ -79,7 +79,7 @@ const AdminLogin = () => {
     <div className="loginContainer">
       <form onSubmit={handleSubmit} className="formContainer">
         <h1>
-          <span>i</span>Book
+          <span>i</span>Movies
         </h1>
         <p className="loginTitle">Admin Login</p>
         <div className="inputContainer">

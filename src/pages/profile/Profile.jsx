@@ -55,7 +55,9 @@ const Profile = () => {
         </div>
       ) : (
         <div className="profileContainer">
-          <h1>Your Bookings</h1>
+          <h1>
+            Your <span>Bookings</span>
+          </h1>
           <ul className="bookings">
             {bookings?.map((b) => {
               const {
